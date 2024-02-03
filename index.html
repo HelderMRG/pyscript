@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<head>
+    <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css" />
+    <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+</head>
+<style>
+    #executar {
+        border-radius: solid 40px 40px 40px 40px;
+        background: rgb(115, 188, 236)
+    }
+</style>
+<script type="module">
+    const loading = document.getElementById('executar');
+    addEventListener('py:ready', () => loading.close());
+    loading.showModal();
+</script>
+
+<title>BD CONTATOS hgStudios&trade;</title>
+</head>
+
+<body>
+    <dialog id="executar">
+        <h1>Executando...</h1>
+    </dialog>
+
+    <nav class="navbar" style="background-color: #000000">
+        <div>
+            <center><a class="title" href="" style="color: #f1e042">CONTATOS PROFISSIONAIS E PESSOAIS</a></center>
+        </div>
+    </nav>
+
+    <section class="pyscript">
+        <center>
+            BANCO DE DADOS MYSQL - MEUS CONTATOS
+        </center>
+        <script type="py">
+        import mysql.connector
+
+        conn = mysql.connector.connect(
+            host ='localhost',
+            user ='root',
+            password = 'admin',
+            database ='contatos')
+
+        if conn.is_connected():
+            db_info = conn.get_server_info()
+            print("Conectado Versão Mysql: ", db_info)
+            cursor = conn.cursor()
+            cursor.execute('select database();')
+            linha = cursor.fetchone()
+            print("Conectado ao DB: ", linha)
+            consulta = f'select * from contatos'
+            cursor.execute(consulta)
+            resultado = cursor.fetchall()
+            print(resultado)
+
+            cursor.close()
+            conn.close()
+        </script>
+
+    </section>
+</body>
+
+</html>
